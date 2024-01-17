@@ -17,6 +17,8 @@ interface CardWrapperProps {
   backButtonLabel: string;
   backButtonHref: string;
   showSocial?: boolean;
+  isAppPrivate?: boolean;
+  isFromRegisterAdmin?: boolean;
 }
 
 export const CardWrapper = ({
@@ -25,7 +27,10 @@ export const CardWrapper = ({
   backButtonLabel,
   backButtonHref,
   showSocial,
+  isAppPrivate,
+  isFromRegisterAdmin
 }: CardWrapperProps) => {
+
   return (
     <Card className="w-[400px] shadow-md">
       <CardHeader>
@@ -37,10 +42,24 @@ export const CardWrapper = ({
         <Social />  
       </CardFooter>}
       <CardFooter>
+        {!isAppPrivate && !isFromRegisterAdmin &&
         <BackButton
           href={backButtonHref}
           label={backButtonLabel}
-        ></BackButton>
+        ></BackButton>}
+        
+          {isAppPrivate && !isFromRegisterAdmin && <>
+          <p className="text-xs text-center">
+            <span className="">{backButtonLabel} </span>
+            <a
+              href="mailto:organization@gmail.com"
+              className="text-blue-500 hover:text-blue-600"
+            >
+              Contact us
+            </a>
+            </p>
+          </>}
+
       </CardFooter>
     </Card>
   );

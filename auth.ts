@@ -51,7 +51,6 @@ export const {
       return session;
     },
     async jwt({token}) {
-      console.log({token})
       
       const idUser = token?.sub;
 

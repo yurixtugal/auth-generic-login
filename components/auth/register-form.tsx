@@ -22,7 +22,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const RegisterForm = () => {
+const RegisterForm = (
+  {isAppPrivate,
+  fromRegisterAdmin
+  }: {isAppPrivate: boolean, fromRegisterAdmin: boolean}
+) => {
   const [isPending, startTransition] = useTransition();
   const [success, setSuccess] = useState< string | undefined >("");
   const [error, setError] = useState< string | undefined >("");
@@ -42,7 +46,6 @@ const RegisterForm = () => {
     startTransition(() => {
       register(data)
       .then((data) => {
-        console.log(data)
         setError(data.error);
         setSuccess(data.success);
       });
@@ -52,9 +55,11 @@ const RegisterForm = () => {
   return (
     <CardWrapper
       headerLabel="Create an account"
-      backButtonLabel="Already have an account?"
-      backButtonHref="/auth/login"
-      showSocial
+      backButtonLabel={fromRegisterAdmin?"":"Already have an account?"}
+      backButtonHref={fromRegisterAdmin?"":"/auth/login"}
+      showSocial={!isAppPrivate}
+      isAppPrivate={isAppPrivate}
+      isFromRegisterAdmin={fromRegisterAdmin}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

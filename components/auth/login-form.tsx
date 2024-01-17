@@ -24,8 +24,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const LoginForm = () => {
-
+const LoginForm = (
+  {isAppPrivate}: {isAppPrivate: boolean}
+) => {
   const searchParams = useSearchParams();
   const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email already in use" : "";
 
@@ -60,7 +61,8 @@ const LoginForm = () => {
       headerLabel="Welcome back!"
       backButtonLabel="Don't have an account?"
       backButtonHref="/auth/register"
-      showSocial
+      showSocial={!isAppPrivate}
+      isAppPrivate={isAppPrivate}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
